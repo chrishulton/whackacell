@@ -1,6 +1,6 @@
 // @ngInject
 function HomeCtrl($scope) {
-  $scope.test = "working";
+  $scope.gridSize = 5;
 }
 
 angular.module('whackacell').controller('HomeCtrl', HomeCtrl);

@@ -1,0 +1,9 @@
+<table class="cellGrid">
+  <tr class="cellGrid-row"
+    ng-repeat="row in gridArray track by $index">
+    <td class="cellGrid-cell"
+      ng-repeat="cell in gridArray track by $index">
+      {{ row }}.{{ cell }}
+    </td>
+  </tr>
+</table>

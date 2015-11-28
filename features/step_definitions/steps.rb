@@ -24,3 +24,17 @@ Then /^I should( not)? see "([^"]*)"(?: within (.*))?$/ do |negation, text, name
     end
   end
 end
+
+When /^I fill in (.*) with "([^"]*)" within (.+)$/ do |field, value, named_element|
+  container = selector_for(named_element)
+  within container do
+    find(selector_for(field)).set(value)
+  end
+end
+
+When /^I drag (.*) to the (left|right) (\d+) times$/ do |field, direction, times|
+  slider = find(selector_for(field))
+  times.to_i.times do
+    slider.send_keys(direction.to_sym)
+  end
+end
