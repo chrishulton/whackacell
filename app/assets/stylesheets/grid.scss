@@ -8,5 +8,10 @@
 
 .cellGrid-cell {
   border: 1px solid gray;
+  cursor: pointer;
   padding: 5px;
+}
+
+.cellGrid-cell.cellGrid-cell--whacked {
+  background-color: red;
 }

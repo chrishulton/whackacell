@@ -17,3 +17,10 @@ Feature: User views the home page
     And I drag the grid slider element to the left 5 times
     Then I should see "2.2"
     But I should not see "3.0"
+
+  @javascript
+  Scenario: User whacks a tile
+    When I go to the homepage
+    Then the tile in row 1 column 1 should not have the class "cellGrid-cell--whacked"
+    When I click the tile in row 1 and column 1
+    Then the tile in row 1 column 1 should have the class "cellGrid-cell--whacked"

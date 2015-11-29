@@ -2,6 +2,8 @@
   <tr class="cellGrid-row"
     ng-repeat="row in gridArray track by $index">
     <td class="cellGrid-cell"
+      ng-class="{ 'cellGrid-cell--whacked' : isWhacked(row, cell) }"
+      ng-click="whackCell(row, cell)"
       ng-repeat="cell in gridArray track by $index">
       {{ row }}.{{ cell }}
     </td>
