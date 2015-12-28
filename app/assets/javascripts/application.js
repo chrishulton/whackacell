@@ -16,5 +16,6 @@
 //= require angular-route
 //= require lodash
 //= require fastclick
+//= require angular-touch
 //= require angular-rails-templates
 //= require_tree .

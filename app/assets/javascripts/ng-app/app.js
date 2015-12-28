@@ -1,7 +1,8 @@
 angular
     .module('whackacell', [
         'ngRoute',
-        'templates'
+        'templates',
+        'ngTouch'
     ]).config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {

@@ -8,6 +8,7 @@ function cellGrid($interval, $timeout) {
       var TOTAL_ROUNDS = 10;
       var MOLE_HIT_SCORE = 5;
       var MOLE_MISS_SCORE = 10;
+      var TIME_TO_START_SECONDS = 3;
 
       $scope.score = 0;
       $scope.gameActive = false;
@@ -74,16 +75,16 @@ function cellGrid($interval, $timeout) {
             $scope.timeToStartSeconds--;
           }, 1000);
         } else {
+          $scope.gameActive = true;
           playRound();
         }
       }
 
       $scope.startGame = function () {
-        $scope.gameActive = true;
         $scope.score = 0;
         $scope.roundNumber = 0;
 
-        $scope.timeToStartSeconds = 3;
+        $scope.timeToStartSeconds = TIME_TO_START_SECONDS;
         countDown();
       };
 
