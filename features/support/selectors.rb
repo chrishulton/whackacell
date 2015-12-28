@@ -5,7 +5,7 @@ def selector_for(named_element)
   when /^the (.*) element$/ then
     "##{$1.gsub(' ', '-')}"
   when /^the (.*) section$/ then
-    ".#{$1.gsub(' ', '-')}-section"
+    ".#{$1.gsub(' ', '-')}"
   when /^the tile in row (.*) and column (.*)$/ then
     ".cellGrid tr:nth-child(#{$1}) > td:nth-child(#{$2})"
   when /^(.*) within (.*)$/ then

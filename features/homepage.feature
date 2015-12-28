@@ -4,23 +4,20 @@ Feature: User views the home page
   Scenario: User views the home page and sees defaults
     When I go to the homepage
     Then I should see "whack a tile"
-    And I should see "0.0" 
-    And I should see "4.4"
-    But I should not see "5.0"
+    And I should see "Score: 0"
+    And I should see "Round: 0 of 10"
+    And I should see "Start"
+    And the cellGrid section should have the class "cellGrid--inactive"
+    And I should see the tile in row 1 and column 1
+    And I should see the tile in row 5 and column 5
+    But I should not see the tile in row 6 and column 1
 
   @javascript
   Scenario: User resizes grid
     When I go to the homepage
     And I drag the grid slider element to the right 3 times
-    Then I should see "7.7"
-    But I should not see "8.0"
-    And I drag the grid slider element to the left 5 times
-    Then I should see "2.2"
-    But I should not see "3.0"
-
-  @javascript
-  Scenario: User whacks a tile
-    When I go to the homepage
-    Then the tile in row 1 column 1 should not have the class "cellGrid-cell--whacked"
-    When I click the tile in row 1 and column 1
-    Then the tile in row 1 column 1 should have the class "cellGrid-cell--whacked"
+    Then I should see the tile in row 8 and column 8
+    But I should not see the tile in row 9 and column 1
+    When I drag the grid slider element to the left 5 times
+    And I should see the tile in row 3 and column 3
+    But I should not see the tile in row 4 and column 1

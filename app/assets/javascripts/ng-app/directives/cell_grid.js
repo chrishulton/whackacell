@@ -1,42 +1,120 @@
-function cellGrid() {
+/* global _ */
+
+function cellGrid($interval, $timeout) {
   return {
     restrict: 'E',
-    scope: {
-      gridSize: '='
-    },
     templateUrl: 'cell_grid.html',
     link: function($scope) {
+      var TOTAL_ROUNDS = 10;
+      var MOLE_HIT_SCORE = 5;
+      var MOLE_MISS_SCORE = 10;
+
+      $scope.score = 0;
+      $scope.gameActive = false;
+      $scope.roundNumber = 0;
+      $scope.totalRounds= TOTAL_ROUNDS;
+      $scope.gridSize = 5;
+
       var getCellIndex = function(row, cell) {
         return row * $scope.gridSize + cell;
       };
 
-      var populateMoles = function() {
+      var resetMoles = function() {
         var grid = [];
-        for (var i =0; i < $scope.gridSize * $scope.gridSize; ++i) {
+        _.times(Math.pow($scope.gridSize,2), function() {
           grid.push({
             whacked: false,
             mole: false
           });
-        }
+        });
         $scope.cells = grid;
       };
 
-      $scope.gridArray = _.range(0, $scope.gridSize);
-      $scope.cells = populateMoles();
+      var endGame = function() {
+        $scope.roundNumber = 0;
+        $scope.gameActive = false;
+      }
+
+      var playRound = function() {
+        $scope.roundNumber++;
+        resetMoles();
+
+        if ($scope.roundNumber > $scope.totalRounds) {
+          endGame();
+          return;
+        }
+
+        var moleDensity = Math.min(
+          Math.sqrt($scope.roundNumber) / 10, .6
+        );
+        var numMoles = parseInt(moleDensity * $scope.cells.length);
+        var molesRemaining = numMoles;
+
+        var shuffledMoles = _.shuffle($scope.cells);
+        while (molesRemaining > 0 && shuffledMoles) {
+          var randomCell = shuffledMoles.pop();
+          randomCell.mole = true;
+          molesRemaining--;
+        }
+
+        //XXX: factor in number of moles and grid size for round length
+        var roundTimeMs = Math.max(1500, numMoles * 400 + ($scope.cells.length / 80) * 1000);
+        $timeout(playRound, roundTimeMs);
+      }
+
+      $scope.gridRange = function() {
+        return _.range(0, $scope.gridSize);
+      };
+
+
+      var countDown = function() {
+        if ($scope.timeToStartSeconds > 1) {
+          $timeout(function() {
+            countDown();
+            $scope.timeToStartSeconds--;
+          }, 1000);
+        } else {
+          playRound();
+        }
+      }
+
+      $scope.startGame = function () {
+        $scope.gameActive = true;
+        $scope.score = 0;
+        $scope.roundNumber = 0;
+
+        $scope.timeToStartSeconds = 3;
+        countDown();
+      };
+
+      $scope.isMole = function(row, cell) {
+        return $scope.cells[getCellIndex(row, cell)].mole;
+      }
 
       $scope.isWhacked = function(row, cell) {
         return $scope.cells[getCellIndex(row, cell)].whacked;
       }
 
       $scope.whackCell = function(row, cell) {
-        var index = getCellIndex(row, cell);
-        $scope.cells[index].whacked = true;
+        if (!$scope.gameActive) {
+          return;
+        }
+        var cell = $scope.cells[getCellIndex(row, cell)];
+        if (!cell.whacked) {
+          cell.whacked = true;
+          if (cell.mole) {
+            $scope.score += MOLE_HIT_SCORE;
+          } else {
+            $scope.score -= MOLE_MISS_SCORE;
+          }
+        }
       }
 
       $scope.$watch('gridSize', function() {
-        $scope.gridArray = _.range(0, $scope.gridSize);
-        populateMoles();
+        resetMoles();
       });
+
+      resetMoles();
     }
   }
 }

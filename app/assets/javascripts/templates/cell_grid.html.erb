@@ -1,11 +1,20 @@
-<table class="cellGrid">
+<div>
+  <input ng-disabled="gameActive" id="grid-slider" type="range" min="3" max="8" ng-model="gridSize">
+  <button ng-disabled="gameActive" ng-click="startGame()">Start</button>
+  <div>
+    <span ng-show="timeToStartSeconds">Ready in: {{ timeToStartSeconds }}</span>
+    <span>Score: {{ score }}</span>
+    <span>Round: {{ roundNumber }} of {{ totalRounds }}</span>
+  </div>
+</div>
+<table class="cellGrid"
+  ng-class="{ 'cellGrid--inactive': !gameActive }">
   <tr class="cellGrid-row"
-    ng-repeat="row in gridArray track by $index">
+    ng-repeat="row in gridRange() track by $index">
     <td class="cellGrid-cell"
-      ng-class="{ 'cellGrid-cell--whacked' : isWhacked(row, cell) }"
+      ng-class="{ 'cellGrid-cell--active': gameActive, 'cellGrid-cell--mole': isMole(row, cell), 'cellGrid-cell--whacked': isWhacked(row, cell) }"
       ng-click="whackCell(row, cell)"
-      ng-repeat="cell in gridArray track by $index">
-      {{ row }}.{{ cell }}
+      ng-repeat="cell in gridRange() track by $index">
     </td>
   </tr>
 </table>
