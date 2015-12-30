@@ -18,4 +18,6 @@
 //= require fastclick
 //= require angular-touch
 //= require angular-rails-templates
+//= require bootstrap
+//= require angular-bootstrap
 //= require_tree .

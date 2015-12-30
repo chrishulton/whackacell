@@ -1,6 +1,17 @@
+input[type="range"].cellOptions-slider {
+  display: inline;
+  width: auto;
+}
+
+.cellOptions-roundProgress {
+  width: 300px;
+}
+
 .cellGrid {
-  border: 1px solid black;
+  border-collapse: separate;
+  border-radius: 20px;
   border-spacing: 20px;
+  border: 1px solid black;
   margin: 10px 0;
 }
 
@@ -11,9 +22,9 @@
 .cellGrid-cell {
   border-radius: 50%;
   border: 1px solid lightgray;
-  height: 20px;
+  height: 40px;
   padding: 10px;
-  width: 20px;
+  width: 40px;
 }
 
 .cellGrid-cell.cellGrid-cell--active {

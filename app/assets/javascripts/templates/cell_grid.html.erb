@@ -1,10 +1,20 @@
-<div>
-  <input ng-disabled="gameActive" id="grid-slider" type="range" min="3" max="8" ng-model="gridSize">
-  <button ng-disabled="gameActive" ng-click="startGame()">Start</button>
+<div class="cellOptions">
+  Grid size:
+  <input ng-disabled="gameActive"
+    class="cellOptions-slider"
+    type="range" min="3" max="8" ng-model="gridSize">
+  <button class="btn btn-primary"
+    ng-disabled="gameActive"
+    ng-click="startGame()">Start</button>
   <div>
-    <span ng-show="timeToStartSeconds">Ready in: {{ timeToStartSeconds }}</span>
     <span>Score: {{ score }}</span>
     <span>Round: {{ roundNumber }} of {{ totalRounds }}</span>
+    <span ng-show="timeToStartSeconds">Ready in: {{ timeToStartSeconds }}</span>
+    <uib-progressbar class="cellOptions-roundProgress"
+      max="roundTimeMax"
+      value="roundTime"
+      animate="false">
+    </uib-progressbar>
   </div>
 </div>
 <table class="cellGrid"

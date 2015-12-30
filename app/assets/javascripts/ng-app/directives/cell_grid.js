@@ -15,6 +15,8 @@ function cellGrid($interval, $timeout) {
       $scope.roundNumber = 0;
       $scope.totalRounds= TOTAL_ROUNDS;
       $scope.gridSize = 5;
+      $scope.roundTime = 0;
+      $scope.roundTimeMax = 1;
 
       var getCellIndex = function(row, cell) {
         return row * $scope.gridSize + cell;
@@ -45,10 +47,8 @@ function cellGrid($interval, $timeout) {
           return;
         }
 
-        var moleDensity = Math.min(
-          Math.sqrt($scope.roundNumber) / 10, .6
-        );
-        var numMoles = parseInt(moleDensity * $scope.cells.length);
+        var moleDensity = Math.min( Math.sqrt($scope.roundNumber) / 10, .6);
+        var numMoles = Math.max(1, parseInt(moleDensity * $scope.cells.length));
         var molesRemaining = numMoles;
 
         var shuffledMoles = _.shuffle($scope.cells);
@@ -59,7 +59,14 @@ function cellGrid($interval, $timeout) {
         }
 
         //XXX: factor in number of moles and grid size for round length
-        var roundTimeMs = Math.max(1500, numMoles * 400 + ($scope.cells.length / 80) * 1000);
+        var roundTimeMs = Math.ceil(
+          Math.max(1500, numMoles * 400 + ($scope.cells.length / 80) * 1000) / 100
+        ) * 100;
+        $scope.roundTimeMax = roundTimeMs;
+        $scope.roundTime = roundTimeMs;
+        $interval(function() {
+          $scope.roundTime -= 25;
+        }, 25, $scope.roundTime / 25);
         $timeout(playRound, roundTimeMs);
       }
 
@@ -70,6 +77,11 @@ function cellGrid($interval, $timeout) {
 
       var countDown = function() {
         if ($scope.timeToStartSeconds > 1) {
+          $scope.roundTimeMax = 1000;
+          $scope.roundTime = 1000;
+          $interval(function() {
+            $scope.roundTime -= 25;
+          }, 25, 40);
           $timeout(function() {
             countDown();
             $scope.timeToStartSeconds--;
