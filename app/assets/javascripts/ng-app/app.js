@@ -1,6 +1,7 @@
 angular
     .module('whackacell', [
         'ngRoute',
+        'ngResource',
         'templates',
         'ngTouch',
         'ui.bootstrap'

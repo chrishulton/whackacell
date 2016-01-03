@@ -21,3 +21,12 @@ Feature: User views the home page
     When I drag the cellOptions slider section to the left 5 times
     And I should see the tile in row 3 and column 3
     But I should not see the tile in row 4 and column 1
+
+  @javascript
+  Scenario: User views high score table
+    When the high score is set
+    And I go to the homepage
+    Then I should see "high scores"
+    And I should see "Vincent"
+    And I should see "777"
+    And I should see "01/01/2016 @ 7:00AM"

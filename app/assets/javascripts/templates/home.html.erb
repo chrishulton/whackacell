@@ -1,4 +1,24 @@
 <div class="main-wrapper">
   <h1>whack a cell</h1>
-  <cell-grid></cell-grid>
+  <div class="main-wrapper-column">
+    <cell-grid></cell-grid>
+  </div>
+  <div class="main-wrapper-column">
+    <h3>high scores</h3>
+    <table class="highScores">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Score</td>
+          <td>When</td>
+      </thead>
+      <tbody>
+      <tr ng-repeat="score in scores">
+        <td>{{ score.user }}</td>
+        <td>{{ score.points }}</td>
+        <td>{{ score.created_at | date:'MM/dd/yyyy @ h:mma' }}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
 </div>

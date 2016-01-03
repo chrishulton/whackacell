@@ -73,3 +73,8 @@ Then /^([^"]*) should( not)? have the class "([^"]*)"$/ do |named_element, negat
     expect(page).to have_css("#{selector}.#{value}")
   end
 end
+
+#XXX: better to make this configurable
+When /^the high score is set$/ do
+  FactoryGirl.create(:score, :user => 'Vincent', :points => 777, :created_at => "01/01/2016 12:00:00")
+end
