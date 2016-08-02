@@ -43,9 +43,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', :require => false
   gem 'selenium-webdriver'
-  gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
+  gem "shoulda"
+  gem "shoulda-matchers"
 
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

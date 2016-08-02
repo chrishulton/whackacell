@@ -3,43 +3,53 @@ input[type="range"].cellOptions-slider {
   width: auto;
 }
 
-.cellOptions-roundProgress {
-  width: 300px;
+.cellOptions-input,
+.cellOptions-stats,
+.postScoreForm {
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.cellOptions-countdown {
+  color: #CD0000;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .cellGrid {
+  background-color: #4DBD33;
   border-collapse: separate;
   border-radius: 20px;
   border-spacing: 20px;
-  border: 1px solid black;
+  border: 2px solid #565963;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   margin: 10px 0;
-}
-
-.cellGrid.cellGrid--inactive {
-  border: 1px solid lightgray;
 }
 
 .cellGrid-cell {
   border-radius: 50%;
-  border: 1px solid lightgray;
+  border: 2px solid #565963;
   height: 40px;
   padding: 10px;
   width: 40px;
 }
 
 .cellGrid-cell.cellGrid-cell--active {
-  border: 1px solid gray;
   cursor: pointer;
 }
 
 .cellGrid-cell.cellGrid-cell--mole {
-  background-color: gray;
+  background-color: #8B2500;
+  transition: 0.2s ease all;
 }
 
 .cellGrid-cell.cellGrid-cell--whacked {
-  background-color: red;
+  background-color: #FF0000;
 }
 
 .cellGrid-cell.cellGrid-cell--mole.cellGrid-cell--whacked {
-  background-color: green;
+  background-color: #FFC125;
 }

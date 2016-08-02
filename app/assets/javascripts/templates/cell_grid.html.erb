@@ -1,20 +1,35 @@
 <div class="cellOptions">
-  Grid size:
-  <input ng-disabled="gameActive"
-    class="cellOptions-slider"
-    type="range" min="3" max="8" ng-model="gridSize">
-  <button class="btn btn-primary"
-    ng-disabled="gameActive"
-    ng-click="startGame()">Start</button>
-  <div>
+  <div class="cellOptions-input">
+    <label>Grid size:
+      <input ng-disabled="gameActive"
+      class="cellOptions-slider"
+      type="range" min="3" max="8" ng-model="gridSize">
+    </label>
+    <button class="btn btn-primary"
+      ng-disabled="gameActive || timeToStartSeconds"
+      ng-click="startGame()">Start</button>
+  </div>
+  <div class="cellOptions-stats">
     <span>Score: {{ score }}</span>
+    <span ng-show="timeToStartSeconds"
+      class="cellOptions-countdown">
+      Ready in: {{ timeToStartSeconds }}
+    </span>
     <span>Round: {{ roundNumber }} of {{ totalRounds }}</span>
-    <span ng-show="timeToStartSeconds">Ready in: {{ timeToStartSeconds }}</span>
-    <uib-progressbar class="cellOptions-roundProgress"
-      max="roundTimeMax"
-      value="roundTime"
-      animate="false">
-    </uib-progressbar>
+  </div>
+  <uib-progressbar class="cellOptions-roundProgress"
+    max="roundTimeMax"
+    value="roundTime"
+    animate="false">
+  </uib-progressbar>
+  <div ng-show="canPostScore">
+    <form name="postScoreForm" class="postScoreForm">
+      <input placeholder='Enter your name'
+      required ng-model="username"></input>
+      <button class="btn btn-primary"
+        ng-disabled="postScoreForm.$invalid"
+        ng-click="postScore()">Post Score</button>
+    </form>
   </div>
 </div>
 <table class="cellGrid"

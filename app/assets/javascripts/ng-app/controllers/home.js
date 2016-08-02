@@ -1,6 +1,14 @@
 // @ngInject
 function HomeCtrl($scope, Score) {
-  $scope.scores = Score.index();
+  "use strict";
+
+  function loadHighScores() {
+    $scope.scores = Score.index();
+  }
+
+  $scope.$on('scoresUpdated', loadHighScores);
+
+  loadHighScores();
 }
 
 angular.module('whackacell').controller('HomeCtrl', HomeCtrl);

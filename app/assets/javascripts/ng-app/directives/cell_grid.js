@@ -1,6 +1,7 @@
 /* global _ */
+function cellGrid($interval, $timeout, Score) {
+  "use strict";
 
-function cellGrid($interval, $timeout) {
   return {
     restrict: 'E',
     templateUrl: 'cell_grid.html',
@@ -12,6 +13,7 @@ function cellGrid($interval, $timeout) {
 
       $scope.score = 0;
       $scope.gameActive = false;
+      $scope.canPostScore = false;
       $scope.roundNumber = 0;
       $scope.totalRounds= TOTAL_ROUNDS;
       $scope.gridSize = 5;
@@ -36,7 +38,13 @@ function cellGrid($interval, $timeout) {
       var endGame = function() {
         $scope.roundNumber = 0;
         $scope.gameActive = false;
-      }
+        $scope.canPostScore = true;
+      };
+
+      var clearScore = function() {
+        $scope.score = 0;
+        $scope.canPostScore = false;
+      };
 
       var playRound = function() {
         $scope.roundNumber++;
@@ -47,7 +55,7 @@ function cellGrid($interval, $timeout) {
           return;
         }
 
-        var moleDensity = Math.min( Math.sqrt($scope.roundNumber) / 10, .6);
+        var moleDensity = Math.min( Math.sqrt($scope.roundNumber) / 10, '.6');
         var numMoles = Math.max(1, parseInt(moleDensity * $scope.cells.length));
         var molesRemaining = numMoles;
 
@@ -68,7 +76,7 @@ function cellGrid($interval, $timeout) {
           $scope.roundTime -= 25;
         }, 25, $scope.roundTime / 25);
         $timeout(playRound, roundTimeMs);
-      }
+      };
 
       $scope.gridRange = function() {
         return _.range(0, $scope.gridSize);
@@ -88,9 +96,10 @@ function cellGrid($interval, $timeout) {
           }, 1000);
         } else {
           $scope.gameActive = true;
+          $scope.canPostScore = false;
           playRound();
         }
-      }
+      };
 
       $scope.startGame = function () {
         $scope.score = 0;
@@ -102,26 +111,33 @@ function cellGrid($interval, $timeout) {
 
       $scope.isMole = function(row, cell) {
         return $scope.cells[getCellIndex(row, cell)].mole;
-      }
+      };
 
       $scope.isWhacked = function(row, cell) {
         return $scope.cells[getCellIndex(row, cell)].whacked;
-      }
+      };
 
       $scope.whackCell = function(row, cell) {
         if (!$scope.gameActive) {
           return;
         }
-        var cell = $scope.cells[getCellIndex(row, cell)];
-        if (!cell.whacked) {
-          cell.whacked = true;
-          if (cell.mole) {
+        var cellObj = $scope.cells[getCellIndex(row, cell)];
+        if (!cellObj.whacked) {
+          cellObj.whacked = true;
+          if (cellObj.mole) {
             $scope.score += MOLE_HIT_SCORE;
           } else {
             $scope.score -= MOLE_MISS_SCORE;
           }
         }
-      }
+      };
+
+      $scope.postScore = function() {
+        Score.create({ user: $scope.username, points: $scope.score}, function() {
+          clearScore();
+          $scope.$emit('scoresUpdated');
+        });
+      };
 
       $scope.$watch('gridSize', function() {
         resetMoles();
@@ -129,7 +145,7 @@ function cellGrid($interval, $timeout) {
 
       resetMoles();
     }
-  }
+  };
 }
 
 angular.module('whackacell').directive('cellGrid', cellGrid);

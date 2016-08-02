@@ -5,7 +5,7 @@ angular
         'templates',
         'ngTouch',
         'ui.bootstrap'
-    ]).config(function ($routeProvider, $locationProvider) {
+    ]).config(function ($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'home.html',
@@ -15,4 +15,6 @@ angular
           enabled: true,
           requireBase: false
         });
+
+        $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
     });
