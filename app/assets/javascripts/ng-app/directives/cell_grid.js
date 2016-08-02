@@ -96,14 +96,13 @@ function cellGrid($interval, $timeout, Score) {
           }, 1000);
         } else {
           $scope.gameActive = true;
-          $scope.canPostScore = false;
           playRound();
         }
       };
 
       $scope.startGame = function () {
-        $scope.score = 0;
         $scope.roundNumber = 0;
+        clearScore();
 
         $scope.timeToStartSeconds = TIME_TO_START_SECONDS;
         countDown();
