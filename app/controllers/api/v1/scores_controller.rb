@@ -22,5 +22,27 @@ module Api
     def index
       @scores = Score.order(points: :desc).limit(HIGH_SCORE_LIMIT)
     end
+
+    def ok
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+    end
+
+
+
+
+
+
+
   end
 end
