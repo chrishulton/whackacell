@@ -16,3 +16,22 @@ angular.module('whackacell').controller('HomeCtrl', HomeCtrl);
 // TODO
 
 // FIXME
+
+
+// FIXME
+
+// FIXME
+
+// FIXME
+
+// FIXME
+
+// FIXME
+
+// FIXME
+
+// FIXME
+
+// FIXME
+
+// FIXME
