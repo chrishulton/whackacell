@@ -2,12 +2,6 @@ module Api
   class V1::ScoresController < ApplicationController
     HIGH_SCORE_LIMIT = 10
 
-    
-    #FIXME
-    #TODO
-    
-    
-    #FIXME
     def create
       begin
         @score = Score.create(
@@ -24,9 +18,6 @@ module Api
         render :json => { :errors => e.message }, :status => :bad_request
       end
     end
-    
-    #TODO
-    #FIXME
 
     def index
       @scores = Score.order(points: :desc).limit(HIGH_SCORE_LIMIT)
