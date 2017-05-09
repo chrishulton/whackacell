@@ -12,3 +12,16 @@ function HomeCtrl($scope, Score) {
 }
 
 angular.module('whackacell').controller('HomeCtrl', HomeCtrl);
+
+// TODO
+// FIXME
+// TODO
+// FIXME
+// TODO
+// FIXME
+// TODO
+// FIXME
+// TODO
+// FIXME
+// TODO
+// TODO
