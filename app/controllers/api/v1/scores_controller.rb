@@ -11,6 +11,7 @@ module Api
           points: params[:points]
         )
 
+        # TODO
         if @score.valid?
           render "api/v1/scores/show", :status => :created
         else
