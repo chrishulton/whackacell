@@ -22,6 +22,7 @@ module Api
     end
 
     def index
+      # COOL
       @scores = Score.order(points: :desc).limit(HIGH_SCORE_LIMIT)
     end
   end
