@@ -3,12 +3,16 @@ module Api
     HIGH_SCORE_LIMIT = 10
 
     def create
+      # OKOKOK
+      # TODO
+      # FIXME
       begin
         @score = Score.create(
           user: params[:user],
           points: params[:points]
         )
 
+        # TODO
         if @score.valid?
           render "api/v1/scores/show", :status => :created
         else
@@ -20,6 +24,7 @@ module Api
     end
 
     def index
+      # COOL
       @scores = Score.order(points: :desc).limit(HIGH_SCORE_LIMIT)
     end
   end
